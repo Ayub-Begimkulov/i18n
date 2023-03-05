@@ -1,4 +1,4 @@
-# Galera i18n
+# @ayub-begimkulov/i18n
 
 Small and type-safe package to create multi-language interfaces.
 
@@ -19,7 +19,7 @@ npm i @galera/i18n
 ## Usage
 
 ```ts
-import { I18N, pluralizeEn, pluralizeRu } from "@galera/i18n";
+import { I18N, pluralizeEn, pluralizeRu } from "@ayub-begimkulov/i18n";
 import en from "./keys/en.json";
 import ru from "./keys/ru.json";
 
@@ -50,7 +50,7 @@ import {
   pluralizeRu,
   useTranslate as useTranslateBase,
   useI18n as useI18nBase,
-} from "@galera/i18n";
+} from "@ayub-begimkulov/i18n";
 import en from "./keys/en.json";
 import ru from "./keys/ru.json";
 
@@ -72,7 +72,7 @@ export const useTranslate = useTranslateBase<typeof i18n>;
 export const useI18n = useI18nBase<typeof i18n>;
 
 // index.tsx
-import { I18NProvider } from "@galera/i18n";
+import { I18NProvider } from "@ayub-begimkulov/i18n";
 import { i18n } from "./i18n";
 
 // ...
