@@ -1,10 +1,11 @@
 {
-  "name": "galera-i18n",
+  "name": "@galera/i18n",
   "version": "0.0.1",
   "description": "Small and type-safe package to create multi-language interfaces.",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist && tsc"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,13 @@
   "bugs": {
     "url": "https://github.com/Ayub-Begimkulov/galera-i18n/issues"
   },
-  "homepage": "https://github.com/Ayub-Begimkulov/galera-i18n#readme"
+  "homepage": "https://github.com/Ayub-Begimkulov/galera-i18n#readme",
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "react": "^18.2.0",
+    "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0 || 17.x || 18.x"
+  }
 }
