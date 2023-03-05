@@ -13,7 +13,7 @@ Features
 ## Installation
 
 ```shell
-npm i @galera/i18n
+npm i @ayub-begimkulov/i18n
 ```
 
 ## Usage
