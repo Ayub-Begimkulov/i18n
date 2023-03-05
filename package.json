@@ -1,0 +1,24 @@
+{
+  "name": "galera-i18n",
+  "version": "0.0.1",
+  "description": "Small and type-safe package to create multi-language interfaces.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ayub-Begimkulov/galera-i18n.git"
+  },
+  "keywords": [
+    "galera",
+    "i18n",
+    "react-i18n"
+  ],
+  "author": "Ayub Begimkulov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ayub-Begimkulov/galera-i18n/issues"
+  },
+  "homepage": "https://github.com/Ayub-Begimkulov/galera-i18n#readme"
+}
