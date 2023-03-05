@@ -1,9 +1,10 @@
 {
   "name": "@ayub-begimkulov/i18n",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Small and type-safe package to create multi-language interfaces.",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "sideEffects": false,
   "scripts": {
     "build": "rm -rf dist && tsc"
   },
