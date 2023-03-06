@@ -1,6 +1,6 @@
 {
   "name": "@ayub-begimkulov/i18n",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Small and type-safe package to create multi-language interfaces.",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -31,7 +31,7 @@
   "peerDependencies": {
     "react": ">=16.8.0 || 17.x || 18.x"
   },
-  "peerDependenciesMeta":{
+  "peerDependenciesMeta": {
     "react": {
       "optional": true
     }
