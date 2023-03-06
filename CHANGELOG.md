@@ -1,4 +1,4 @@
-## Version 0.1.0
+## Version 0.1.1
 
 - Added a `createPluralize` function instead of the separate `pluralizeEn` / `pluralizeRu` functions.
 - Deprecated `pluralizeEn` and `pluralizeRu` functions.
