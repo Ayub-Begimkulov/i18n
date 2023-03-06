@@ -1,3 +1,16 @@
+export function createPluralize(locale: string) {
+  const rules = new Intl.PluralRules(locale);
+
+  const pluralize = (count: number) => {
+    return rules.select(count);
+  };
+
+  return pluralize;
+}
+
+/**
+ * @deprecated Use `createPluralize('en')` instead.
+ */
 export function pluralizeEn(number: number) {
   const i = Math.floor(Math.abs(number));
 
@@ -8,6 +21,9 @@ export function pluralizeEn(number: number) {
   return "other";
 }
 
+/**
+ * @deprecated Use `createPluralize('ru')` instead.
+ */
 export function pluralizeRu(number: number) {
   const absNumber = Math.floor(Math.abs(number));
 

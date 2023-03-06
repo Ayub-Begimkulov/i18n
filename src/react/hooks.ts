@@ -23,8 +23,7 @@ interface ReactI18N<I18NType extends I18N<any>> {
   readonly lang: ReturnType<I18NType["getLang"]>;
   get: I18NType["get"];
   /**
-   * use `lang` instead
-   * @deprecated
+   * @deprecated use `lang` instead
    */
   getLang: I18NType["getLang"];
   setLang: I18NType["setLang"];
