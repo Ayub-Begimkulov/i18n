@@ -9,10 +9,12 @@ export type LanguageConfig = {
 
 interface I18NOptions<
   LanguagesMap extends Record<string, LanguageConfig>,
+  InferParameterTypes extends boolean,
   Lang extends keyof LanguagesMap = keyof LanguagesMap
 > {
   defaultLang: Lang;
   languages: LanguagesMap;
+  inferParameterTypes?: InferParameterTypes;
 }
 
 type KeyType<KeysetsMap extends Record<string, LanguageConfig>> =
@@ -27,19 +29,54 @@ type UnwrapKeysetType<
   ? ResolvedKeyset
   : MaybeUnresolvedKeyset;
 
+type TranslationParameters<
+  Translation extends string | Record<string, string>
+> = Translation extends Record<string, string>
+  ? TranslationParameters<Translation[keyof Translation]>
+  : Translation extends string
+  ? string extends Translation
+    ? Record<string, string | number>
+    : Record<TranslationParametersKeys<Translation>, string | number>
+  : never;
+
+type TranslationParametersKeys<
+  Translation extends string,
+  Params extends string = never
+> = Translation extends `${string}{{${infer Param}}}${infer Rest}`
+  ? TranslationParametersKeys<Rest, Params | TrimString<Param>>
+  : Params;
+
+type TrimString<String extends string> = String extends `${" "}${infer Rest}`
+  ? TrimString<Rest>
+  : String extends `${infer Rest}${" "}`
+  ? TrimString<Rest>
+  : String;
+
 type GetRestParams<
   KeysetsMap extends Record<string, LanguageConfig>,
-  Key extends KeyType<KeysetsMap>
+  Key extends KeyType<KeysetsMap>,
+  InferParameterTypes extends boolean
 > = KeysetType<KeysetsMap>[Key] extends object
-  ? [options: { count: number; [key: string]: number | string }]
-  : [options?: Record<string, string | number>];
+  ? [
+      options: InferParameterTypes extends true
+        ? TranslationParameters<KeysetType<KeysetsMap>[Key]> & { count: number }
+        : { count: number; [key: string]: number | string }
+    ]
+  : [
+      options?: InferParameterTypes extends true
+        ? TranslationParameters<KeysetType<KeysetsMap>[Key]>
+        : Record<string, string | number>
+    ];
 
-export class I18N<KeysetsMap extends Record<string, LanguageConfig>> {
+export class I18N<
+  KeysetsMap extends Record<string, LanguageConfig>,
+  InferParameterTypes extends boolean = false
+> {
   private lang: keyof KeysetsMap;
   private subscribers = new Set<(lang: keyof KeysetsMap) => void>();
   private keysets: KeysetsMap;
 
-  constructor(options: I18NOptions<KeysetsMap>) {
+  constructor(options: I18NOptions<KeysetsMap, InferParameterTypes>) {
     this.keysets = options.languages;
 
     this.setLang(options.defaultLang);
@@ -53,7 +90,7 @@ export class I18N<KeysetsMap extends Record<string, LanguageConfig>> {
 
   get<Key extends KeyType<KeysetsMap>>(
     key: Key,
-    ...rest: GetRestParams<KeysetsMap, Key>
+    ...rest: GetRestParams<KeysetsMap, Key, InferParameterTypes>
   ): string {
     const { keyset, pluralize } = this.keysets[this.lang]!;
 
@@ -67,7 +104,8 @@ export class I18N<KeysetsMap extends Record<string, LanguageConfig>> {
     if (typeof translation === "undefined") {
       return String(key);
     }
-    const [params = {}] = rest;
+
+    const params: Record<string, string | number> = rest[0] || {};
 
     if (typeof translation === "string") {
       return interpolateTranslation(translation, params);
