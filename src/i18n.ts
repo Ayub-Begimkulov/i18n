@@ -14,7 +14,7 @@ interface I18NOptions<
 > {
   defaultLang: Lang;
   languages: LanguagesMap;
-  inferParameterTypes: InferParameterTypes;
+  inferParameterTypes?: InferParameterTypes;
 }
 
 type KeyType<KeysetsMap extends Record<string, LanguageConfig>> =
@@ -57,12 +57,20 @@ type GetRestParams<
   Key extends KeyType<KeysetsMap>,
   InferParameterTypes extends boolean
 > = KeysetType<KeysetsMap>[Key] extends object
-  ? [options: { count: number; [key: string]: number | string }]
-  : [options?: Record<string, string | number>];
+  ? [
+      options: InferParameterTypes extends true
+        ? TranslationParameters<KeysetType<KeysetsMap>[Key]> & { count: number }
+        : { count: number; [key: string]: number | string }
+    ]
+  : [
+      options?: InferParameterTypes extends true
+        ? TranslationParameters<KeysetType<KeysetsMap>[Key]>
+        : Record<string, string | number>
+    ];
 
 export class I18N<
   KeysetsMap extends Record<string, LanguageConfig>,
-  InferParameterTypes extends boolean
+  InferParameterTypes extends boolean = false
 > {
   private lang: keyof KeysetsMap;
   private subscribers = new Set<(lang: keyof KeysetsMap) => void>();
@@ -96,7 +104,8 @@ export class I18N<
     if (typeof translation === "undefined") {
       return String(key);
     }
-    const [params = {}] = rest;
+
+    const params: Record<string, string | number> = rest[0] || {};
 
     if (typeof translation === "string") {
       return interpolateTranslation(translation, params);
