@@ -145,39 +145,6 @@ const i18n = new I18N({
 i18n.get("greeting"); // 'Hello'
 ```
 
-### `createPluralize`
-
-Creates a pluralize function for a given locale that will return a plural format for a specific number of items. Leverages [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) under the hood.
-
-Example:
-
-```ts
-import { createPluralize } from "@ayub-begimkulov/i18n";
-
-const pluralizeEn = createPluralize("en");
-
-pluralizeEn(1); // 'one'
-pluralizeEn(0); // 'other'
-```
-
-### `I18NProvider`
-
-A wrapper around React context provider. Used to share `I18N` instance across the components. Mostly used inside of the library hooks (`useI18n`/`useTranslate`).
-
-Example:
-
-```tsx
-import { I18NProvider } from '@ayub-begimkulov/i18n';
-import { App } from './App';
-import { i18n } form './i18n';
-
-root.render(
-  <I18NProvider i18n={i18n}>
-    <App />
-  </I18NProvider>
-)
-```
-
 ### `useI18n`
 
 A hook that returns an object with properties/methods of the i18n. Updates a component whenever the language changes.
@@ -215,6 +182,39 @@ const Component = () => {
 
   return <div>{t("welcome")}</div>;
 };
+```
+
+### `createPluralize`
+
+Creates a pluralize function for a given locale that will return a plural format for a specific number of items. Leverages [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) under the hood.
+
+Example:
+
+```ts
+import { createPluralize } from "@ayub-begimkulov/i18n";
+
+const pluralizeEn = createPluralize("en");
+
+pluralizeEn(1); // 'one'
+pluralizeEn(0); // 'other'
+```
+
+### `I18NProvider`
+
+A wrapper around React context provider. Used to share `I18N` instance across the components. Mostly used inside of the library hooks (`useI18n`/`useTranslate`).
+
+Example:
+
+```tsx
+import { I18NProvider } from '@ayub-begimkulov/i18n';
+import { App } from './App';
+import { i18n } form './i18n';
+
+root.render(
+  <I18NProvider i18n={i18n}>
+    <App />
+  </I18NProvider>
+)
 ```
 
 ### `TaggedText`
