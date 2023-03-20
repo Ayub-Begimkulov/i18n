@@ -180,15 +180,70 @@ root.render(
 
 ### `useI18n`
 
-TODO
+A hook that returns an object with properties/methods of the i18n. Updates a component whenever the language changes.
+
+Example:
+
+```tsx
+const allLanguages = ["en", "ru", "ar"];
+
+const Component = () => {
+  const { lang, setLang } = useI18n();
+
+  return (
+    <>
+      <div>{lang}</div>
+      {allLanguages.map((lang) => (
+        <div onClick={() => setLang(lang)}>Select {lang}</div>
+      ))}
+    </>
+  );
+};
+```
 
 ### `useTranslate`
 
-TODO
+A hook that returns a translate function. The component that uses this hook will update whenever the language changes.
+
+Example:
+
+```tsx
+import { useTranslate } from "@ayub-begimkulov/i18n";
+
+const Component = () => {
+  const t = useTranslate();
+
+  return <div>{t("welcome")}</div>;
+};
+```
 
 ### `TaggedText`
 
-TODO
+A component that allows to use React component inside of your translations.
+
+Example:
+
+```tsx
+import { TaggedText, useTranslate } from "@ayub-begimkulov/i18n";
+
+export const Component = () => {
+  const t = useTranslate();
+
+  console.log(t("key")); // "<1>Important!</1> Check out <2>the project documentation</2> before using this library"
+
+  return (
+    <div>
+      <TaggedText
+        text={t("key")}
+        tags={{
+          1: (text) => <strong>{text}</strong>,
+          2: (text) => <a>{text}</a>,
+        }}
+      />
+    </div>
+  );
+};
+```
 
 ## License
 
