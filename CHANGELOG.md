@@ -1,3 +1,7 @@
+## Version 0.2.0
+
+- Added new flag in I18N options called `inferParameterTypes` which could automatically infer mustache parameters.
+
 ## Version 0.1.1
 
 - Added a `createPluralize` function instead of the separate `pluralizeEn` / `pluralizeRu` functions.
