@@ -1,3 +1,7 @@
+## Version 0.2.1
+
+- removed `inferParameterTypes` because of the issues with TypeScript
+
 ## Version 0.2.0
 
 - Added new flag in I18N options called `inferParameterTypes` which could automatically infer mustache parameters.
