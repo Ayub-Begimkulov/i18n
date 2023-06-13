@@ -19,7 +19,7 @@ function useI18NContext() {
   return i18n;
 }
 
-interface ReactI18N<I18NType extends I18N<any>> {
+export interface ReactI18N<I18NType extends I18N<any>> {
   readonly lang: ReturnType<I18NType["getLang"]>;
   get: I18NType["get"];
   /**
